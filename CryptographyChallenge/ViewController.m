@@ -48,35 +48,16 @@ NSString *const lowercaseAlphabet = @"abcdefghijklmnopqrstuvwxyz";
         
         if (upperRange.location != NSNotFound)
         {
-            if ((upperRange.location + offset) >= [uppercaseAlphabet length])
-            {
-                NSRange shift = NSMakeRange ((upperRange.location+offset)%[uppercaseAlphabet length], 1);
-                character = [uppercaseAlphabet characterAtIndex:shift.location];
-                charString = [NSString stringWithFormat:@"%c",character];
-            }
-            else
-            {
-                NSRange shift = NSMakeRange ((upperRange.location+offset), 1);
-                character = [uppercaseAlphabet characterAtIndex:shift.location];
-                charString = [NSString stringWithFormat:@"%c",character];
-            }
+            NSRange shift = NSMakeRange ((upperRange.location+offset)%[uppercaseAlphabet length], 1);
+            character = [uppercaseAlphabet characterAtIndex:shift.location];
+            charString = [NSString stringWithFormat:@"%c",character];
         }
         
         if (lowerRange.location != NSNotFound)
         {
-            if ((lowerRange.location + offset) >= [lowercaseAlphabet length])
-            {
-                NSRange shift = NSMakeRange ((lowerRange.location+offset)%[lowercaseAlphabet length], 1);
-                character = [lowercaseAlphabet characterAtIndex:shift.location];
-                charString = [NSString stringWithFormat:@"%c",character];
-            }
-            else
-            {
-                NSRange shift = NSMakeRange ((lowerRange.location+offset), 1);
-                character = [lowercaseAlphabet characterAtIndex:shift.location];
-                charString = [NSString stringWithFormat:@"%c",character];
-            }
-            
+            NSRange shift = NSMakeRange ((lowerRange.location+offset)%[lowercaseAlphabet length], 1);
+            character = [lowercaseAlphabet characterAtIndex:shift.location];
+            charString = [NSString stringWithFormat:@"%c",character];
         }
         
         [finishedString appendString:charString];
