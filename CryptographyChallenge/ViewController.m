@@ -61,11 +61,11 @@ NSString *const lowercaseAlphabet = @"abcdefghijklmnopqrstuvwxyz";
     return finishedString;
 }
 
--(NSString *)shiftCharacterOfString:(NSString *)cString ForAlphabetString:(NSString *)string WithOffset: (NSUInteger)offset
+-(NSString *)shiftCharacterOfString:(NSString *)cString ForAlphabetString:(NSString *)alphaString WithOffset: (NSUInteger)offset
 {
-    NSRange range = [string rangeOfString:cString];
-    NSRange shift = NSMakeRange ((range.location+offset)%[string length], 1);
-    NSString *charString = [string substringWithRange:shift];
+    NSRange range = [alphaString rangeOfString:cString];
+    NSRange shift = NSMakeRange ((range.location+offset)%[alphaString length], 1);
+    NSString *charString = [alphaString substringWithRange:shift];
     return charString;
 }
 
