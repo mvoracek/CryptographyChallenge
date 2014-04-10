@@ -40,26 +40,20 @@ NSString *const lowercaseAlphabet = @"abcdefghijklmnopqrstuvwxyz";
     for (int i = 0; i < [aString length]; i++)
     {
         NSString *charString;
-        char character;
         
-        charString = [finishedString substringWithRange:NSMakeRange(i, 1)];
-        //character = [aString characterAtIndex:i];
-        //charString = [NSString stringWithFormat:@"%c",character];
-        NSRange upperRange = [uppercaseAlphabet rangeOfString:charString];
-        NSRange lowerRange = [lowercaseAlphabet rangeOfString:charString];
+        charString = [aString substringWithRange:NSMakeRange(i, 1)];
         
-        if (upperRange.location != NSNotFound)
+        if ([[NSCharacterSet uppercaseLetterCharacterSet] characterIsMember:[charString characterAtIndex:0]])
         {
-            NSRange shift = NSMakeRange ((upperRange.location+offset)%[uppercaseAlphabet length], 1);
-            character = [uppercaseAlphabet characterAtIndex:shift.location];
-            charString = [NSString stringWithFormat:@"%c",character];
+            charString = [self shiftCharacterOfString:charString ForAlphabetString:uppercaseAlphabet WithOffset:offset];
         }
-        
-        if (lowerRange.location != NSNotFound)
+        else if ([[NSCharacterSet lowercaseLetterCharacterSet] characterIsMember:[charString characterAtIndex:0]])
         {
-            NSRange shift = NSMakeRange ((lowerRange.location+offset)%[lowercaseAlphabet length], 1);
-            character = [lowercaseAlphabet characterAtIndex:shift.location];
-            charString = [NSString stringWithFormat:@"%c",character];
+            charString = [self shiftCharacterOfString:charString ForAlphabetString:lowercaseAlphabet WithOffset:offset];
+        }
+        else
+        {
+            //for characters other than letters
         }
         
         [finishedString appendString:charString];
@@ -67,6 +61,13 @@ NSString *const lowercaseAlphabet = @"abcdefghijklmnopqrstuvwxyz";
     return finishedString;
 }
 
+-(NSString *)shiftCharacterOfString:(NSString *)cString ForAlphabetString:(NSString *)string WithOffset: (NSUInteger)offset
+{
+    NSRange range = [string rangeOfString:cString];
+    NSRange shift = NSMakeRange ((range.location+offset)%[string length], 1);
+    NSString *charString = [string substringWithRange:shift];
+    return charString;
+}
 
 
 @end
