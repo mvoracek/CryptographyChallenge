@@ -36,13 +36,15 @@ NSString *const lowercaseAlphabet = @"abcdefghijklmnopqrstuvwxyz";
 -(NSString *)encodeString:(NSString *)aString withOffset:(NSUInteger)offset
 {
     NSMutableString *finishedString = [[NSMutableString alloc] init];
-    NSString *charString;
-    char character;
     
     for (int i = 0; i < [aString length]; i++)
     {
-        character = [aString characterAtIndex:i];
-        charString = [NSString stringWithFormat:@"%c",character];
+        NSString *charString;
+        char character;
+        
+        charString = [finishedString substringWithRange:NSMakeRange(i, 1)];
+        //character = [aString characterAtIndex:i];
+        //charString = [NSString stringWithFormat:@"%c",character];
         NSRange upperRange = [uppercaseAlphabet rangeOfString:charString];
         NSRange lowerRange = [lowercaseAlphabet rangeOfString:charString];
         
