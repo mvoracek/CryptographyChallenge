@@ -15,6 +15,16 @@ NSString *const lowercaseAlphabet = @"abcdefghijklmnopqrstuvwxyz";
 
 @interface ViewController ()
 
+@property (weak, nonatomic) IBOutlet UILabel *functionLabel;
+@property (weak, nonatomic) IBOutlet UITextView *inputTextView;
+@property (weak, nonatomic) IBOutlet UITextField *offsetTextField;
+@property (weak, nonatomic) IBOutlet UILabel *outputLabel;
+- (IBAction)onCodeButtonPressed:(id)sender;
+- (IBAction)decoderSwitchToggled:(id)sender;
+@property (weak, nonatomic) IBOutlet UISwitch *decoderSwitch;
+@property (weak, nonatomic) IBOutlet UIButton *codeButton;
+
+
 @end
 
 @implementation ViewController
@@ -23,14 +33,46 @@ NSString *const lowercaseAlphabet = @"abcdefghijklmnopqrstuvwxyz";
 {
     [super viewDidLoad];
     
-    NSString *output = [self encodeString:inputString withOffset:13];
+    self.view.backgroundColor = [UIColor lightGrayColor];
+}
+
+- (IBAction)onCodeButtonPressed:(id)sender
+{
+    NSUInteger offset =[_offsetTextField.text intValue];
+    
+    if (_decoderSwitch.on)
+    {
+        offset = 26 - offset;
+    }
+    
+    NSString *output = [self encodeString:_inputTextView.text withOffset:offset];
+    
+    _outputLabel.text = output;
+    
+    [self.view endEditing:YES];
     
     NSLog(@"%@", output);
+    
     if ([output isEqualToString:successString])
     {
         NSLog(@"Successful cypher! Congratulations.");
     }
-    
+}
+
+- (IBAction)decoderSwitchToggled:(id)sender
+{
+    if (_decoderSwitch.on)
+    {
+        [_codeButton setTitle:@"Decode!" forState:UIControlStateNormal];
+        //_codeButton.titleLabel.text = @"Decode!";
+        _functionLabel.text = @"Message Decoder";
+    }
+    else
+    {
+        [_codeButton setTitle:@"Encode!" forState:UIControlStateNormal];
+        //_codeButton.titleLabel.text = @"Code!";
+        _functionLabel.text = @"Message Encoder";
+    }
 }
 
 -(NSString *)encodeString:(NSString *)aString withOffset:(NSUInteger)offset
