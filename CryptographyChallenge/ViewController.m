@@ -64,13 +64,11 @@ NSString *const lowercaseAlphabet = @"abcdefghijklmnopqrstuvwxyz";
     if (_decoderSwitch.on)
     {
         [_codeButton setTitle:@"Decode!" forState:UIControlStateNormal];
-        //_codeButton.titleLabel.text = @"Decode!";
         _functionLabel.text = @"Message Decoder";
     }
     else
     {
         [_codeButton setTitle:@"Encode!" forState:UIControlStateNormal];
-        //_codeButton.titleLabel.text = @"Code!";
         _functionLabel.text = @"Message Encoder";
     }
 }
